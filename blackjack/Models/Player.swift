@@ -23,4 +23,11 @@ class Player: ObservableObject {
     hand.removeAll()
     score = 0
   }
+  
+  func recalculateScore() {
+    score = 0
+    for card in hand {
+      score += card.rank.value
+    }
+  }
 }

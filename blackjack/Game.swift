@@ -44,13 +44,18 @@ class GameManager: ObservableObject {
   
   func hitPlayer() {
     player.giveCard(card: deck.draw()!, faceup: true)
-    /* if we have an ace and over 21, count is as a 1 */
-    for card in player.hand {
-      if card.rank == .ace && player.score > 21 {
-        player.score -= 10
-        break
-      }
+    
+    /* recalculate our score, a prior hit on an
+       ace over 21 would already have been reduced. */
+    player.recalculateScore()
+    
+    /* only reduce aces until we can't bust */
+    var aceCount = player.hand.filter { $0.rank == .ace }.count
+    while player.score > 21 && aceCount > 0 {
+      player.score -= 10
+      aceCount -= 1
     }
+
     /* bust */
     if player.score > 21 {
       determineWinner()
