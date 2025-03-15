@@ -8,15 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+  @StateObject var game = GameManager()
+  
+  var body: some View {
+    
+    VStack {
+      Text(game.status)
+        .font(.largeTitle)
+        .padding()
+      
+      Spacer()
+      
+      PlayerView(player: game.dealer)
+        .padding(.bottom, 100)
+      PlayerView(player: game.player)
+        .padding(.top, 100)
+      
+      Spacer()
+      HStack {
+        Button("Hit") {
+          game.hitPlayer()
         }
         .padding()
+        .disabled(game.status != "Hit or Stand?")
+        
+        Button("Stand") {
+          game.stand()
+        }
+        .padding()
+        .disabled(game.status != "Hit or Stand?")
+      }
+      .padding()
+      
+      Button("Restart") {
+        game.startNewGame()
+      }
+      .padding()
     }
+  }
 }
 
 #Preview {

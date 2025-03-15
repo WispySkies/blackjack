@@ -9,21 +9,19 @@ import SwiftUI
 
 struct PlayerView: View {
   
-  let cards: [Card]
+  @ObservedObject var player: Player
   
   var body: some View {
     HStack {
-      ForEach(cards) { card in
+      ForEach(player.hand) { card in
         CardView(Card: card)
+          .frame(width: 60, height: 90)
       }
     }
   }
 }
 
 #Preview {
-  PlayerView(cards: [
-    Card(suit: .spades, rank: .ace, visible: true),
-    Card(suit: .hearts, rank: .king, visible: true),
-    Card(suit: .diamonds, rank: .seven, visible: true)
-  ])
+  var player = Player()
+  PlayerView(player: player)
 }

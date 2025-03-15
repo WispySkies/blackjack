@@ -12,12 +12,13 @@ struct CardView: View {
   var body: some View {
     Text(Card.toString)
     .font(.title)
+    .minimumScaleFactor(0.7)
     .foregroundColor(.white)
     .padding()
     .background(Color.black)
     .cornerRadius(10)
     .shadow(radius: 5)
-    .frame(width: 100, height: 40)
+    .frame(width: 80, height: 40)
   }
 }
 

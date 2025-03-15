@@ -38,7 +38,7 @@ struct Card: Identifiable {
   let id = UUID()
   let suit: Suit
   let rank: Rank
-  let visible: Bool
+  var visible: Bool
   
   var toString: String {
     if visible {
