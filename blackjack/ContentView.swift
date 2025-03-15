@@ -40,7 +40,7 @@ struct ContentView: View {
       }
       .padding()
       
-      Button("Restart") {
+      Button("Start") {
         game.startNewGame()
       }
       .padding()

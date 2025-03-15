@@ -34,12 +34,24 @@ class GameManager: ObservableObject {
     dealer.giveCard(card: deck.draw()!, faceup: false)
     player.giveCard(card: deck.draw()!, faceup: true)
     dealer.giveCard(card: deck.draw()!, faceup: true)
+    
+    if player.score == 21 {
+      status = "Blackjack! Player Wins!"
+      return
+    }
     status = "Hit or Stand?"
   }
   
   func hitPlayer() {
     player.giveCard(card: deck.draw()!, faceup: true)
-    /* quick bust */
+    /* if we have an ace and over 21, count is as a 1 */
+    for card in player.hand {
+      if card.rank == .ace && player.score > 21 {
+        player.score -= 10
+        break
+      }
+    }
+    /* bust */
     if player.score > 21 {
       determineWinner()
     }
